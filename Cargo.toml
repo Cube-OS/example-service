@@ -11,10 +11,7 @@ log = "0.4.8"
 circular-queue = "0.2.6"
 example-api = { git = "ssh://git@github.com/Cube-OS/example-api"}
 cubeos-service = { git = "ssh://git@github.com/Cube-OS/cubeos-service.git"}
-# variant_count = "1.1"
 cubeos-error = { git = "ssh://git@github.com/Cube-OS/cubeos-error.git"}
-# strum_macros = "0.23.0"
-# strum = "0.23.0"
 juniper = "0.14.2"
 serde = "1.0"
 
