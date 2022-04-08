@@ -4,10 +4,10 @@
 use cubeos_service::*;
 use example_api::*;
 
-#[cfg(not(feature = "debug"))]
+#[cfg(not(feature = "ground"))]
 use crate::subsystem::*;
 
-#[cfg(any(feature = "graphql", feature = "debug"))]
+#[cfg(any(feature = "graphql", feature = "ground"))]
 use crate::graphql::*;
 
 // Macro to create UDP-handler function or GraphQL Queries and Mutations
