@@ -36,8 +36,8 @@ fn main() -> ExampleResult<()> {
     })
     .unwrap();
 
-    // Only needed for the debug feature
-    #[cfg(feature = "debug")]
+    // Only needed for the ground feature
+    #[cfg(feature = "ground")]
     let socket = service_config
     .get("udp_socket")
     .ok_or_else(|| {
@@ -46,7 +46,7 @@ fn main() -> ExampleResult<()> {
     })
     .unwrap();
 
-    #[cfg(feature = "debug")]
+    #[cfg(feature = "ground")]
     let target = service_config
     .get("target")
     .ok_or_else(|| {
@@ -71,7 +71,7 @@ fn main() -> ExampleResult<()> {
             },
     );
 
-    #[cfg(feature = "debug")]
+    #[cfg(feature = "ground")]
     // Start debug service
     Service::new(
         service_config,
@@ -91,7 +91,7 @@ fn main() -> ExampleResult<()> {
     )
     .start();
 
-    #[cfg(not(any(feature = "debug",feature = "graphql")))]
+    #[cfg(not(any(feature = "ground",feature = "graphql")))]
     //Start up UDP server
     Service::new(
         service_config,
@@ -99,6 +99,12 @@ fn main() -> ExampleResult<()> {
         Some(Arc::new(udp_handler)),
     )
     .start();
+
+    #[cfg(debug)]
+    println!("{:?}", service_config);
+
+    #[cfg(debug)]
+    debug();
 
     Ok(())
 }

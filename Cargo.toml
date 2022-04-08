@@ -10,8 +10,7 @@ failure = "0.1.3"
 log = "0.4.8"
 circular-queue = "0.2.6"
 example-api = { git = "ssh://git@github.com/Cube-OS/example-api"}
-#cubeos-service = { git = "ssh://git@github.com/Cube-OS/cubeos-service.git"}
-cubeos-service = { path = "../cubeos-service" }
+cubeos-service = { git = "ssh://git@github.com/Cube-OS/cubeos-service.git"}
 cubeos-error = { git = "ssh://git@github.com/Cube-OS/cubeos-error.git"}
 juniper = "0.14.2"
 serde = "1.0"
@@ -20,4 +19,9 @@ serde = "1.0"
 [features]
 default = ['cubeos-service/default']
 graphql = ['cubeos-service/graphql']
+<<<<<<< HEAD
 debug = ['cubeos-service/debug']
+=======
+ground = ['cubeos-service/ground']
+debug = ['cubeos-service/debug']
+>>>>>>> be0e907fc63d3ddffae8badfc5fbb4d09bf65d8d
