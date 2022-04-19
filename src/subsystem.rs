@@ -12,6 +12,7 @@ use cubeos_service::*;
 use cubeos_error::*;
 use std::sync::{Arc,Mutex};
 use std::convert::From;
+use crate::objects::*;
 
 #[derive(Clone)]
 pub struct Subsystem {
@@ -35,8 +36,9 @@ impl Subsystem {
         }
     }
 
-    pub fn set(&self, sub: ExampleInput) -> Result<GenericResponse> {
-        match self.substruct.lock().unwrap().set(sub) {
+    pub fn set(&self, set: ExampleObject) -> Result<GenericResponse> {
+        println!("Set");
+        match self.substruct.lock().unwrap().set(set.sub,set.choice) {
             Ok(()) => Ok(GenericResponse::new()),
             Err(e) => Err(Error::from(e)),
         }

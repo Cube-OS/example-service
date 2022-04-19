@@ -6,6 +6,7 @@
 pub mod service;
 pub mod subsystem;
 pub mod graphql;
+pub mod objects;
 
 // include API
 use example_api::*;

@@ -3,6 +3,7 @@
 
 use cubeos_service::*;
 use example_api::*;
+use crate::objects::*;
 
 #[cfg(not(feature = "ground"))]
 use crate::subsystem::*;
@@ -21,5 +22,5 @@ use crate::graphql::*;
 service_macro!{
     generic: Ping => fn ping(&self,_g: Generic) -> Result<GenericResponse>; (Generic, GenericResponse),
     query: Get => fn get(&self, get: ExampleEnum) -> Result<ExampleOutput>; (ExampleEnum, GqlExampleOutput),
-    mutation: Set => fn set(&self, sub: ExampleInput) -> Result<GenericResponse>; (GqlExampleInput, GenericResponse),
+    mutation: Set => fn set(&self, set: ExampleObject) -> Result<GenericResponse>; (GqlExampleInput, GenericResponse),
 }
