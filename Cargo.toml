@@ -19,9 +19,5 @@ serde = "1.0"
 [features]
 default = ['cubeos-service/default']
 graphql = ['cubeos-service/graphql']
-<<<<<<< HEAD
-debug = ['cubeos-service/debug']
-=======
 ground = ['cubeos-service/ground']
 debug = ['cubeos-service/debug']
->>>>>>> be0e907fc63d3ddffae8badfc5fbb4d09bf65d8d

@@ -19,7 +19,7 @@ pub struct GqlExampleInput {
     gql_ex_no: i32,
     gql_ex_no1: i32,
     gql_ex_no2: i32,
-    // gql_ex_str: String,
+    gql_ex_str: String,
     gql_ex_bool: bool,
     gql_choice: ExampleEnum,
 }
@@ -33,7 +33,7 @@ impl TryFrom<GqlExampleInput> for ExampleObject {
                 in_no: e.gql_ex_no as u16,
                 in_no1: e.gql_ex_no1 as u32,
                 in_no2: e.gql_ex_no2 as u16,
-                // in_str: e.gql_ex_str,
+                in_str: e.gql_ex_str,
                 in_bool: e.gql_ex_bool,
             },
             choice: e.gql_choice,
@@ -44,7 +44,7 @@ impl TryFrom<GqlExampleInput> for ExampleObject {
 #[derive(Serialize,Deserialize)]
 pub struct GqlExampleOutput {
     gql_out_no: Vec<f64>,
-    // gql_out_str: Option<String>,
+    gql_out_str: String,
     gql_out_bool: Vec<bool>,
 }
 // Translation from Output to GraphQLOutput
@@ -58,7 +58,7 @@ impl From<ExampleOutput> for GqlExampleOutput {
                 }
                 vec
             },
-            // gql_out_str: o.out_str,
+            gql_out_str: o.out_str,
             gql_out_bool: o.out_bool,
         }
     }
