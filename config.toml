@@ -1,0 +1,18 @@
+# Ground Segment
+[example-service]
+bus = "/dev/i2c-0"
+err_buff_len = 64
+wd_timeout = 1000
+udp_socket = '192.168.0.1:8029'
+target = '192.168.0.2:8029'
+
+# Space Segment
+[example-service.addr]
+ip = "0.0.0.0"
+port = 8029
+
+[example-service.comms]
+max_num_handlers = 10
+downlink_ports = [16002,8050,8080]
+timeout = 1000
+ip = "127.0.0.1"
