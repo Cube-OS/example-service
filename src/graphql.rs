@@ -21,23 +21,21 @@ pub struct GqlExampleInput {
     gql_ex_no2: i32,
     gql_ex_str: String,
     gql_ex_bool: bool,
-    gql_choice: ExampleEnum,
+    // gql_choice: ExampleEnum,
 }
 // Translation from GraphQLInput Type to normal types
-impl TryFrom<GqlExampleInput> for ExampleObject {
+impl TryFrom<GqlExampleInput> for ExampleInput {
     type Error = CubeOSError;
 
-    fn try_from(e: GqlExampleInput) -> CubeOSResult<ExampleObject> {
-        Ok(ExampleObject{
-            sub: ExampleInput{
+    fn try_from(e: GqlExampleInput) -> CubeOSResult<ExampleInput> {
+        Ok(ExampleInput{
                 in_no: e.gql_ex_no as u16,
                 in_no1: e.gql_ex_no1 as u32,
                 in_no2: e.gql_ex_no2 as u16,
                 in_str: e.gql_ex_str,
                 in_bool: e.gql_ex_bool,
-            },
-            choice: e.gql_choice,
-        })
+            }
+        )
     }
 }
 
