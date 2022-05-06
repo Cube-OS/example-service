@@ -25,7 +25,7 @@ impl Subsystem {
         })
     }
 
-    pub fn ping(&self, _g: Generic) -> Result<GenericResponse> {
+    pub fn ping(&self) -> Result<GenericResponse> {
         Ok(GenericResponse::new())
     }
 
@@ -36,12 +36,19 @@ impl Subsystem {
         }
     }
 
-    pub fn set(&self, set: ExampleObject) -> Result<GenericResponse> {
+    pub fn set(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<GenericResponse> {
         println!("Set");
-        match self.substruct.lock().unwrap().set(set.sub,set.choice) {
+        match self.substruct.lock().unwrap().set(sub,choice) {
             Ok(()) => Ok(GenericResponse::new()),
             Err(e) => Err(Error::from(e)),
-        }
-        
+        }        
     }
+
+    // pub fn set(&self, set: ExampleObject) -> Result<GenericResponse> {
+    //     println!("Set");
+    //     match self.substruct.lock().unwrap().set(set.sub,set.choice) {
+    //         Ok(()) => Ok(GenericResponse::new()),
+    //         Err(e) => Err(Error::from(e)),
+    //     }        
+    // }
 }

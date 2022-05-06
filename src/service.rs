@@ -20,7 +20,10 @@ use crate::graphql::*;
 // (e.g. Payload telemetry returns a Vec<u8>, but resembles analog data like Voltage,Current,Temperature etc.)
 // If GraphQLInput/Output are not needed then please set to Input and Output of function
 service_macro!{
-    generic: Ping => fn ping(&self,_g: Generic) -> Result<GenericResponse>; (Generic, GenericResponse),
-    query: Get => fn get(&self, get: ExampleEnum) -> Result<ExampleOutput>; (ExampleEnum, GqlExampleOutput),
-    mutation: Set => fn set(&self, set: ExampleObject) -> Result<GenericResponse>; (GqlExampleInput, GenericResponse),
+    // generic: Ping => fn ping(&self,_g: Generic) -> Result<GenericResponse>; (Generic, GenericResponse),
+    // generic: Ping => fn ping(&self) -> Result<GenericResponse>; (Generic, GenericResponse),
+    query: Ping => fn ping(&self) -> Result<GenericResponse>; in:; out: GenericResponse;
+    query: Get => fn get(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
+    // mutation: Set => fn set(&self, set: ExampleObject) -> Result<GenericResponse>; (GqlExampleInput, GenericResponse),
+    mutation: Set => fn set(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<GenericResponse>; in: GqlExampleInput, ExampleEnum; out: GenericResponse;
 }
