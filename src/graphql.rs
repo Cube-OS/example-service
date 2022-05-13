@@ -14,7 +14,7 @@ use juniper::*;
 use serde::*;
 use crate::objects::*;
 
-#[derive(GraphQLInputObject)]
+#[derive(GraphQLInputObject,Clone)]
 pub struct GqlExampleInput {
     gql_ex_no: i32,
     gql_ex_no1: i32,

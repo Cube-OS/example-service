@@ -9,46 +9,76 @@
 
 use example_api::*;
 use cubeos_service::*;
-use cubeos_error::*;
-use std::sync::{Arc,Mutex};
+use cubeos_error::{Error,Result};
+use std::sync::{Arc,Mutex,RwLock};
 use std::convert::From;
-use crate::objects::*;
+use std::time::Duration;
+use crate::service::*;
 
 #[derive(Clone)]
 pub struct Subsystem {
-    substruct: Arc<Mutex<ExampleStruct>>,
+    example: Arc<Mutex<ExampleStruct>>,
+    pub last_cmd: Arc<RwLock<Vec<u8>>>,
+    pub last_err: Arc<RwLock<Error>>,
 }
 impl Subsystem {
-    pub fn new(_bus: &str) -> ExampleResult<Self> {
+    pub fn new(
+        i2c_path: String,
+        i2c_addr: u16,
+        uart_path: String,
+        uart_setting: serial::PortSettings,
+        uart_timeout: Duration,
+    ) -> ExampleResult<Self> {
         Ok(Self {
-            substruct: Arc::new(Mutex::new(ExampleStruct::new())),
+            example: Arc::new(Mutex::new(ExampleStruct::new(i2c_path,i2c_addr,uart_path,uart_setting,uart_timeout)?)),
+            last_cmd: Arc::new(RwLock::new(Vec::new())),
+            last_err: Arc::new(RwLock::new(Error::None)),
         })
     }
 
-    pub fn ping(&self) -> Result<GenericResponse> {
-        Ok(GenericResponse::new())
+    pub fn ping(&self) -> Result<()> {
+        Ok(())
     }
 
-    pub fn get(&self, get: ExampleEnum) -> Result<ExampleOutput> {
-        match self.substruct.lock().unwrap().get(get) {
+    pub fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput> {
+        match self.example.lock().unwrap().get_values(get) {
             Ok(x) => Ok(x),
             Err(e) => Err(Error::from(e)),
         }
     }
 
-    pub fn set(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<GenericResponse> {
-        println!("Set");
-        match self.substruct.lock().unwrap().set(sub,choice) {
-            Ok(()) => Ok(GenericResponse::new()),
+    pub fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()> {
+        match self.example.lock().unwrap().set_values(sub,choice) {
+            Ok(()) => Ok(()),
             Err(e) => Err(Error::from(e)),
-        }        
+        }
     }
 
-    // pub fn set(&self, set: ExampleObject) -> Result<GenericResponse> {
-    //     println!("Set");
-    //     match self.substruct.lock().unwrap().set(set.sub,set.choice) {
-    //         Ok(()) => Ok(GenericResponse::new()),
-    //         Err(e) => Err(Error::from(e)),
-    //     }        
-    // }
+    pub fn get_i2c(&self) -> Result<Vec<u8>> {
+        match self.example.lock().unwrap().get_i2c() {
+            Ok(x) => Ok(x),
+            Err(e) => Err(Error::from(e)),
+        }
+    }
+
+    pub fn set_i2c(&self, input: u8) -> Result<()> {
+        match self.example.lock().unwrap().set_i2c(input) {
+            Ok(()) => Ok(()),
+            Err(e) => Err(Error::from(e)),
+        }
+    }
+
+    pub fn get_uart(&self) -> Result<u8> {
+        match self.example.lock().unwrap().get_uart() {
+            Ok(x) => Ok(x),
+            Err(e) => Err(Error::from(e)),
+        }
+    }
+
+    pub fn set_uart(&self, input: u8) -> Result<()> {
+        match self.example.lock().unwrap().set_i2c(input) {
+            Ok(()) => Ok(()),
+            Err(e) => Err(Error::from(e)),
+        }
+    }
 }
