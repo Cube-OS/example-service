@@ -23,7 +23,7 @@ service_macro!{
     query: Ping => fn ping(&self) -> Result<()>;
     query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
     query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
-    query: GetUart => fn get_uart(&self) -> Result<u8>; out: u8;
+    query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
     mutation: Set => fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()>; in: GqlExampleInput, ExampleEnum;
     mutation: SetI2c => fn set_i2c(&self, input: u8) -> Result<()>; in: i32;
     mutation: SetUart => fn set_uart(&self, input: u8) -> Result<()>; in: i32;

@@ -41,44 +41,26 @@ impl Subsystem {
     }
 
     pub fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput> {
-        match self.example.lock().unwrap().get_values(get) {
-            Ok(x) => Ok(x),
-            Err(e) => Err(Error::from(e)),
-        }
+        Ok(self.example.lock().unwrap().get_values(get)?)
     }
 
     pub fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()> {
-        match self.example.lock().unwrap().set_values(sub,choice) {
-            Ok(()) => Ok(()),
-            Err(e) => Err(Error::from(e)),
-        }
+        Ok(self.example.lock().unwrap().set_values(sub,choice)?)
     }
 
     pub fn get_i2c(&self) -> Result<Vec<u8>> {
-        match self.example.lock().unwrap().get_i2c() {
-            Ok(x) => Ok(x),
-            Err(e) => Err(Error::from(e)),
-        }
+        Ok(self.example.lock().unwrap().get_i2c()?)
     }
 
     pub fn set_i2c(&self, input: u8) -> Result<()> {
-        match self.example.lock().unwrap().set_i2c(input) {
-            Ok(()) => Ok(()),
-            Err(e) => Err(Error::from(e)),
-        }
+        Ok(self.example.lock().unwrap().set_i2c(input)?)
     }
 
-    pub fn get_uart(&self) -> Result<u8> {
-        match self.example.lock().unwrap().get_uart() {
-            Ok(x) => Ok(x),
-            Err(e) => Err(Error::from(e)),
-        }
+    pub fn get_uart(&self) -> Result<Vec<u8>> {
+        Ok(self.example.lock().unwrap().get_uart()?)
     }
 
     pub fn set_uart(&self, input: u8) -> Result<()> {
-        match self.example.lock().unwrap().set_i2c(input) {
-            Ok(()) => Ok(()),
-            Err(e) => Err(Error::from(e)),
-        }
+        Ok(self.example.lock().unwrap().set_i2c(input)?)
     }
 }
