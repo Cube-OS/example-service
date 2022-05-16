@@ -33,6 +33,7 @@ fn main() -> ExampleResult<()> {
     })
     .unwrap();
 
+    #[cfg(not(feature = "ground"))]
     let i2c_bus = service_config
     .get("i2c_bus")
     .ok_or_else(|| {
@@ -40,10 +41,11 @@ fn main() -> ExampleResult<()> {
         format_err!("Failed to load 'bus' config value");
     })
     .unwrap();
-
+    #[cfg(not(feature = "ground"))]
     let i2c_bus = i2c_bus.as_str().unwrap().to_string();
 
     // Alternatively the I2C address can be hardcoded here
+    #[cfg(not(feature = "ground"))]
     let i2c_addr = service_config
     .get("i2c_addr")
     .ok_or_else(|| {
@@ -51,13 +53,15 @@ fn main() -> ExampleResult<()> {
         format_err!("Failed to load 'bus' config value");
     })
     .unwrap();
+    #[cfg(not(feature = "ground"))]
     let i2c_addr = i2c_addr.as_str().unwrap();
+    #[cfg(not(feature = "ground"))]
     let i2c_addr: u16 = if i2c_addr.starts_with("0x") {
         u16::from_str_radix(&i2c_addr[2..], 16).unwrap()
     } else {
         u16::from_str_radix(i2c_addr, 16).unwrap()
     };
-
+    #[cfg(not(feature = "ground"))]
     let uart_bus = service_config
     .get("uart_bus")
     .ok_or_else(|| {
@@ -78,6 +82,7 @@ fn main() -> ExampleResult<()> {
     //     format_err!("Failed to load 'bus' config value");
     // })
     // .unwrap();
+    #[cfg(not(feature = "ground"))]
     let uart_setting = serial::PortSettings{
         baud_rate: Baud9600,
         char_size: Bits8,
@@ -85,7 +90,7 @@ fn main() -> ExampleResult<()> {
         stop_bits: Stop1,
         flow_control: FlowNone,
     };
-
+    #[cfg(not(feature = "ground"))]
     let uart_timeout = service_config
     .get("uart_timeout")
     .ok_or_else(|| {
@@ -93,7 +98,7 @@ fn main() -> ExampleResult<()> {
         format_err!("Failed to load 'bus' config value");
     })
     .unwrap();
-
+    #[cfg(not(feature = "ground"))]
     let uart_timeout: Duration = Duration::from_secs(u64::from_str(uart_timeout.as_str().unwrap()).unwrap());
 
     // Only needed for the ground feature
@@ -120,7 +125,7 @@ fn main() -> ExampleResult<()> {
     // let i2c_bus = bus.as_str().unwrap();
     // let i2c_bus = bus.as_str().unwrap();
     // let i2c_bus = bus.as_str().unwrap();
-
+    #[cfg(not(feature = "ground"))]
     let subsystem: Box<Subsystem> = Box::new(
         match Subsystem::new(i2c_bus,i2c_addr,uart_bus,uart_setting,uart_timeout)
             .map_err(|err| {
