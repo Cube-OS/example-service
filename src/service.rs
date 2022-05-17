@@ -21,7 +21,7 @@ use crate::graphql::*;
 // If GraphQLInput/Output are not needed then please set to Input and Output of function
 service_macro!{
     query: Ping => fn ping(&self) -> Result<()>;
-    query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: GplExampleEnum; out: GqlExampleOutput;
+    query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
     query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
     query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
     mutation: Set => fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()>; in: GqlExampleInput, ExampleEnum;
