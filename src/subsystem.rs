@@ -36,10 +36,6 @@ impl Subsystem {
         })
     }
 
-    pub fn ping(&self) -> Result<()> {
-        Ok(())
-    }
-
     pub fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput> {
         Ok(self.example.lock().unwrap().get_values(get)?)
     }
