@@ -12,7 +12,6 @@ use cubeos_error::{Result as CubeOSResult,Error as CubeOSError};
 use std::convert::TryFrom;
 use juniper::*;
 use serde::*;
-use crate::objects::*;
 
 #[derive(GraphQLInputObject,Clone)]
 pub struct GqlExampleInput {

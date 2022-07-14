@@ -102,6 +102,29 @@ fn main() -> ExampleResult<()> {
     let uart_timeout: Duration = Duration::from_secs(u64::from_str(uart_timeout.as_str().unwrap()).unwrap());
 
     // Only needed for the ground feature
+    let udp_path = service_config
+    .get("udp_path")
+    .ok_or_else(|| {
+        error!("Failed to load 'udp-socket' config value");
+        format_err!("Failed to load 'udp-socket' config value");
+    })
+    .unwrap()
+    .as_str()
+    .unwrap()
+    .to_string();
+
+    let udp_to = service_config
+    .get("udp_to")
+    .ok_or_else(|| {
+        error!("Failed to load 'target' config value");
+        format_err!("Failed to load 'target' config value");
+    })
+    .unwrap()
+    .as_str()
+    .unwrap()
+    .to_string();
+
+    // Only needed for the ground feature
     #[cfg(feature = "ground")]
     let socket = service_config
     .get("udp_socket")
@@ -127,7 +150,7 @@ fn main() -> ExampleResult<()> {
     // let i2c_bus = bus.as_str().unwrap();
     #[cfg(not(feature = "ground"))]
     let subsystem: Box<Subsystem> = Box::new(
-        match Subsystem::new(i2c_bus,i2c_addr,uart_bus,uart_setting,uart_timeout)
+        match Subsystem::new(i2c_bus,i2c_addr,uart_bus,uart_setting,uart_timeout, udp_path, udp_to)
             .map_err(|err| {
                 error!("Failed to create subsystem: {:?}", err);
                 err

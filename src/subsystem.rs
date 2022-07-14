@@ -23,9 +23,7 @@ use example_api::*;
 use cubeos_service::*;
 use cubeos_error::{Error,Result};
 use std::sync::{Arc,Mutex,RwLock};
-use std::convert::From;
 use std::time::Duration;
-use crate::service::*;
 
 #[derive(Clone)]
 pub struct Subsystem {
@@ -53,9 +51,11 @@ impl Subsystem {
         uart_path: String,
         uart_setting: serial::PortSettings,
         uart_timeout: Duration,
+        udp_path: String,
+        udp_to: String,
     ) -> ExampleResult<Self> {
         Ok(Self {
-            example: Arc::new(Mutex::new(ExampleStruct::new(i2c_path,i2c_addr,uart_path,uart_setting,uart_timeout)?)),
+            example: Arc::new(Mutex::new(ExampleStruct::new(i2c_path,i2c_addr,uart_path,uart_setting,uart_timeout,udp_path,udp_to)?)),
             last_cmd: Arc::new(RwLock::new(Vec::new())),
             last_err: Arc::new(RwLock::new(Error::None)),
         })
@@ -108,11 +108,11 @@ impl Subsystem {
         Ok(self.example.lock().unwrap().set_uart(input)?)
     }
     
-    pub fn get_udp(&self) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_udp()?)
+    pub fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>> {
+        Ok(self.example.lock().unwrap().get_udp(command, rx_len)?)
     }
 
-    pub fn set_udp(&self, input: u8) -> Result<()> {
+    pub fn set_udp(&self, input: Vec<u8>) -> Result<()> {
         Ok(self.example.lock().unwrap().set_udp(input)?)
     }
 }
