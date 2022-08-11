@@ -12,17 +12,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// 
+//
 // Contributed by: Patrick Oppel (patrick.oppel94@gmail.com)
-// 
+//
 // In this file the subsystem that contains all the functions to interact with the API is defined
-// 
+//
 // Comments generated in parts with GPT-3 (see disclaimer in README)
 
-use example_api::*;
+use cubeos_error::{Error, Result};
 use cubeos_service::*;
-use cubeos_error::{Error,Result};
-use std::sync::{Arc,Mutex,RwLock};
+use example_api::*;
+use std::sync::{Arc, Mutex, RwLock};
 use std::time::Duration;
 
 #[derive(Clone)]
@@ -55,7 +55,15 @@ impl Subsystem {
         udp_to: String,
     ) -> ExampleResult<Self> {
         Ok(Self {
-            example: Arc::new(Mutex::new(ExampleStruct::new(i2c_path,i2c_addr,uart_path,uart_setting,uart_timeout,udp_path,udp_to)?)),
+            example: Arc::new(Mutex::new(ExampleStruct::new(
+                i2c_path,
+                i2c_addr,
+                uart_path,
+                uart_setting,
+                uart_timeout,
+                udp_path,
+                udp_to,
+            )?)),
             last_cmd: Arc::new(RwLock::new(Vec::new())),
             last_err: Arc::new(RwLock::new(Error::None)),
         })
@@ -84,14 +92,14 @@ impl Subsystem {
     /// # Output
     ///
     /// * `Result<()>` - Returns () if successful, ExampleError otherwise
-    /// 
+    ///
     pub fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()> {
-        Ok(self.example.lock().unwrap().set_values(sub,choice)?)
+        Ok(self.example.lock().unwrap().set_values(sub, choice)?)
     }
 
     /// These functions are examples how to use the underlying GET and SET functions
     /// for I2C, UART and UDP payloads
-    /// 
+    ///
     pub fn get_i2c(&self) -> Result<Vec<u8>> {
         Ok(self.example.lock().unwrap().get_i2c()?)
     }
@@ -107,7 +115,7 @@ impl Subsystem {
     pub fn set_uart(&self, input: u8) -> Result<()> {
         Ok(self.example.lock().unwrap().set_uart(input)?)
     }
-    
+
     pub fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>> {
         Ok(self.example.lock().unwrap().get_udp(command, rx_len)?)
     }
