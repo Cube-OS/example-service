@@ -1,6 +1,11 @@
 # Ground Segment
 [example-service]
-bus = "/dev/i2c-0"
+i2c_bus = "/dev/i2c-0"
+i2c_addr = '1'
+uart_bus = "/dev/ttyS0" #placeholder only
+uart_timeout = '100'
+udp_path = '0.0.0.0:8030'
+udp_to = '0.0.0.0:8031'
 err_buff_len = 64
 wd_timeout = 1000
 udp_socket = '192.168.0.1:8029'
