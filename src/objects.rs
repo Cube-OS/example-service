@@ -1,6 +1,6 @@
 // Example for input objects that are defined on Service level
 use example_api::*;
-use serde::*;
+use cubeos_service::serde::*;
 use std::mem::size_of;
 
 #[derive(Serialize, Deserialize)]
