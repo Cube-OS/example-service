@@ -9,10 +9,12 @@
 
 use cubeos_error::{Error as CubeOSError, Result as CubeOSResult};
 use example_api::*;
+use cubeos_service::juniper as juniper;
 use juniper::*;
 use serde::*;
 use std::convert::TryFrom;
 
+// Example if Input was a struct
 #[derive(GraphQLInputObject, Clone)]
 pub struct GqlExampleInput {
     gql_ex_no: i32,
