@@ -36,6 +36,7 @@ use crate::graphql::*;
 // (e.g. Payload telemetry returns a Vec<u8>, but resembles analog data like Voltage,Current,Temperature etc.)
 // If GraphQLInput/Output are not needed then please set to Input and Output of function
 service_macro! {
+    // Note that Ping, GetLastError, GetLastMutation are already inculded in the CubeOS-Service
     query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
     query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
     query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
