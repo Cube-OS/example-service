@@ -39,25 +39,25 @@ impl TryFrom<GqlExampleInput> for ExampleInput {
     }
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct GqlExampleOutput {
-    gql_out_no: Vec<f64>,
-    gql_out_str: String,
-    gql_out_bool: Vec<bool>,
-}
-// Translation from Output to GraphQLOutput
-impl From<ExampleOutput> for GqlExampleOutput {
-    fn from(o: ExampleOutput) -> GqlExampleOutput {
-        GqlExampleOutput {
-            gql_out_no: {
-                let mut vec: Vec<f64> = Vec::new();
-                for i in 0..o.out_no.len() {
-                    vec.push(o.out_no[i] as f64 * 1.4);
-                }
-                vec
-            },
-            gql_out_str: o.out_str,
-            gql_out_bool: o.out_bool,
-        }
-    }
-}
+// #[derive(Serialize, Deserialize)]
+// pub struct GqlExampleOutput {
+//     gql_out_no: Vec<f64>,
+//     gql_out_str: String,
+//     gql_out_bool: Vec<bool>,
+// }
+// // Translation from Output to GraphQLOutput
+// impl From<ExampleOutput> for GqlExampleOutput {
+//     fn from(o: ExampleOutput) -> GqlExampleOutput {
+//         GqlExampleOutput {
+//             gql_out_no: {
+//                 let mut vec: Vec<f64> = Vec::new();
+//                 for i in 0..o.out_no.len() {
+//                     vec.push(o.out_no[i] as f64 * 1.4);
+//                 }
+//                 vec
+//             },
+//             gql_out_str: o.out_str,
+//             gql_out_bool: o.out_bool,
+//         }
+//     }
+// }

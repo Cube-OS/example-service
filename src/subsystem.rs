@@ -117,7 +117,7 @@ impl Subsystem {
     }
 
     pub fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_udp(command, rx_len)?)
+        Ok(self.example.lock().unwrap().get_udp(command)?)
     }
 
     pub fn set_udp(&self, input: Vec<u8>) -> Result<()> {

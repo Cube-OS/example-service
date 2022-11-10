@@ -39,8 +39,8 @@ service_macro! {
     subsystem::Subsystem{ 
         // Note that Ping, GetLastError, GetLastMutation are already inculded in the CubeOS-Service           
         query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
-        query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
-        query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
+        query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<i32>;
+        query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<i32>;
         // query: GetUdp => fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>>; in: Vec<u8>, usize; out: Vec<u8>;
         mutation: Set => fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()>; in: GqlExampleInput, ExampleEnum;
         mutation: SetI2c => fn set_i2c(&self, input: u8) -> Result<()>; in: i32;
