@@ -11,12 +11,13 @@ log = "0.4.8"
 circular-queue = "0.2.6"
 example-api = { path = "../example-api"}
 cubeos-service = { path = "../cubeos-service"}
-cubeos-error = { path = "../cubeos-error"}
+cubeos-error = { git = "ssh://git@github.com/Cube-OS/cubeos-error.git"}
 serde = "1.0"
 serial = "0.4.0"
+ground = { git = "ssh://git@github.com/Cube-OS/ground", optional = true}
 
 # enable features for cubeos-service
 [features]
 default = ['cubeos-service/default']
-ground = ['cubeos-service/ground']
+ground = ['cubeos-service/ground', "dep:ground"]
 debug = ['cubeos-service/debug']

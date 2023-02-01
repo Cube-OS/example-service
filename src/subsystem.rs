@@ -93,7 +93,21 @@ impl Subsystem {
     ///
     /// * `Result<()>` - Returns () if successful, ExampleError otherwise
     ///
-    pub fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()> {
+    pub fn set_values(&self, 
+        in_no: u16,
+        in_no1: u32,
+        in_no2: u16,
+        in_str: String,
+        in_bool: bool,
+        choice: ExampleEnum,
+    ) -> Result<()> {
+        let sub = ExampleInput{
+           in_no,
+           in_no1,
+           in_no2,
+           in_str,
+           in_bool, 
+        };
         Ok(self.example.lock().unwrap().set_values(sub, choice)?)
     }
 
@@ -117,7 +131,7 @@ impl Subsystem {
     }
 
     pub fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_udp(command, rx_len)?)
+        Ok(self.example.lock().unwrap().get_udp(command)?)
     }
 
     pub fn set_udp(&self, input: Vec<u8>) -> Result<()> {

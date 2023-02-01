@@ -24,8 +24,8 @@ use example_api::*;
 // #[cfg(not(feature = "ground"))]
 // use crate::subsystem::*;
 
-#[cfg(feature = "ground")]
-use crate::graphql::*;
+// #[cfg(feature = "ground")]
+// use crate::graphql::*;
 
 // Macro to create UDP-handler function or GraphQL Queries and Mutations
 // The layout follows the rules:
@@ -36,13 +36,14 @@ use crate::graphql::*;
 // (e.g. Payload telemetry returns a Vec<u8>, but resembles analog data like Voltage,Current,Temperature etc.)
 // If GraphQLInput/Output are not needed then please set to Input and Output of function
 service_macro! {
+    use ExampleError;
     subsystem::Subsystem{ 
         // Note that Ping, GetLastError, GetLastMutation are already inculded in the CubeOS-Service           
-        query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: GqlExampleOutput;
-        query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
-        query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
+        query: Get => fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput>; in: ExampleEnum; out: ExampleOutput;
+        // query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
+        // query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
         // query: GetUdp => fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>>; in: Vec<u8>, usize; out: Vec<u8>;
-        mutation: Set => fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()>; in: GqlExampleInput, ExampleEnum;
+        mutation: Set => fn set_values(&self, in_no: u16, in_n01: u32, in_no2: u16, in_str: String, in_bool: bool, choice: ExampleEnum) -> Result<()>; in: GqlExampleInput, ExampleEnum;
         mutation: SetI2c => fn set_i2c(&self, input: u8) -> Result<()>; in: i32;
         mutation: SetUart => fn set_uart(&self, input: u8) -> Result<()>; in: i32;
         // mutation: SetUdp => fn set_udp(&self, input: Vec<u8>) -> Result<()>; in: Vec<u8>;

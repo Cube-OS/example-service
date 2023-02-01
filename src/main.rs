@@ -3,16 +3,16 @@
 // #[deny(missing_docs)]
 // #[deny(warnings)]
 
-#[cfg(feature = "ground")]
-pub mod graphql;
-pub mod objects;
+// #[cfg(feature = "ground")]
+// pub mod graphql;
+// pub mod objects;
 pub mod service;
 pub mod subsystem;
 
 // include API
 use example_api::*;
 
-use cubeos_service::{Config, Service};
+use cubeos_service::{Config, Service,Logger};
 // include output of macro in service.rs file
 use crate::service::*;
 use crate::subsystem::Subsystem;
@@ -25,6 +25,9 @@ use std::sync::Arc;
 use std::time::Duration;
 
 fn main() -> ExampleResult<()> {
+    Logger::init();
+    info!("Start Example Service");
+
     let service_config = Config::new("example-service")
         .map_err(|err| {
             error!("Failed to load service config: {:?}", err);
@@ -178,16 +181,11 @@ fn main() -> ExampleResult<()> {
     // Start debug service
     Service::new(
         service_config,
-        QueryRoot,
-        MutationRoot,
         socket.as_str().unwrap().to_string(),
         target.as_str().unwrap().to_string(),
+        Some(Arc::new(terminal)),
     )
     .start();
-
-    #[cfg(feature = "graphql")]
-    // Start up graphql server
-    Service::new(service_config, subsystem, QueryRoot, MutationRoot).start();
 
     #[cfg(not(any(feature = "ground", feature = "graphql")))]
     //Start up UDP server
