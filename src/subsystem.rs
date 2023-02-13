@@ -93,7 +93,21 @@ impl Subsystem {
     ///
     /// * `Result<()>` - Returns () if successful, ExampleError otherwise
     ///
-    pub fn set_values(&self, sub: ExampleInput, choice: ExampleEnum) -> Result<()> {
+    pub fn set_values(&self, 
+        in_no: u16,
+        in_no1: u32,
+        in_no2: u16,
+        in_str: String,
+        in_bool: bool,
+        choice: ExampleEnum,
+    ) -> Result<()> {
+        let sub = ExampleInput{
+           in_no,
+           in_no1,
+           in_no2,
+           in_str,
+           in_bool, 
+        };
         Ok(self.example.lock().unwrap().set_values(sub, choice)?)
     }
 
