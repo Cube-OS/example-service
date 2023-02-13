@@ -130,7 +130,7 @@ impl Subsystem {
         Ok(self.example.lock().unwrap().set_uart(input)?)
     }
 
-    pub fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>> {
+    pub fn get_udp(&self, command: Vec<u8>) -> Result<Vec<u8>> {
         Ok(self.example.lock().unwrap().get_udp(command)?)
     }
 
