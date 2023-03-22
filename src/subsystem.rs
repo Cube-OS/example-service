@@ -19,7 +19,6 @@
 //
 // Comments generated in parts with GPT-3 (see disclaimer in README)
 
-use cubeos_error::{Error, Result};
 use cubeos_service::*;
 use example_api::*;
 use std::sync::{Arc, Mutex, RwLock};
