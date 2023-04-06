@@ -21,20 +21,13 @@
 use cubeos_service::*;
 use example_api::*;
 
-// #[cfg(not(feature = "ground"))]
-// use crate::subsystem::*;
-
-// #[cfg(feature = "ground")]
-// use crate::graphql::*;
-
 // Macro to create UDP-handler function or GraphQL Queries and Mutations
 // The layout follows the rules:
 // query/mutation: Command-Name => Function as defined in subsystem.rs; out: GraphQLOutput;
 //
-// GraphQLInput is only needed if Input is a struct that contains fields with types other than i32,f64,String or bool
-// GraphQLOutput is only needed if the Output should be formatted in humanly readable way
+// Out is only needed for queries if the Output should be formatted in humanly readable way
 // (e.g. Payload telemetry returns a Vec<u8>, but resembles analog data like Voltage,Current,Temperature etc.)
-// If GraphQLInput/Output are not needed then please set to Input and Output of function
+// If Out is not needed then please set to Output of function
 service_macro! {
     use ExampleError;
     subsystem::Subsystem{ 
@@ -43,6 +36,7 @@ service_macro! {
         // query: GetI2c => fn get_i2c(&self) -> Result<Vec<u8>>; out: Vec<u8>;
         // query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
         // query: GetUdp => fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>>; out: Vec<u8>;
+        mutation: Error => fn test_err(&self) -> Result<()>;
         mutation: Set => fn set_values(&self, in_no: u16, in_n01: u32, in_no2: u16, in_str: String, in_bool: bool, choice: ExampleEnum) -> Result<()>;
         mutation: SetI2c => fn set_i2c(&self, input: u8) -> Result<()>;
         mutation: SetUart => fn set_uart(&self, input: u8) -> Result<()>;

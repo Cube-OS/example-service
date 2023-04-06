@@ -23,6 +23,8 @@ use cubeos_service::*;
 use example_api::*;
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::Duration;
+use log::{error, info};
+
 
 #[derive(Clone)]
 pub struct Subsystem {
@@ -78,7 +80,20 @@ impl Subsystem {
     ///
     /// * `Result<ExampleOutput>` - Returns Struct containing the requested values or ExampleError
     pub fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput> {
-        Ok(self.example.lock().unwrap().get_values(get)?)
+        info!("get_values called with {:?}", get);
+        Ok(self.example.lock().unwrap()
+            .get_values(get)
+            .map_err(|e| {
+                error!("get_values failed with {:?}", e);
+                e
+            })?
+        )
+    }
+
+    pub fn test_err(&self) -> Result<()> {
+        error!("test_err called");
+        let e = ExampleError::None;
+        Err(e.into())
     }
 
     /// This function is used to set values of the underlying API's struct.
