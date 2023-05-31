@@ -178,12 +178,12 @@ fn main() -> ExampleResult<()> {
     service::debug();
 
     #[cfg(feature = "ground")]
-    // Start debug service
+    // Start ground service
     Service::new(
         service_config,
         socket.as_str().unwrap().to_string(),
         target.as_str().unwrap().to_string(),
-        Some(Arc::new(terminal)),
+        Some(Arc::new(json_handler)),
     )
     .start();
 

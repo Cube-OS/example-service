@@ -8,7 +8,7 @@ udp_path = '127.0.0.1:8031'
 udp_to = '127.0.0.1:8032'
 err_buff_len = 64
 wd_timeout = 1000
-udp_socket = '172.25.20.139:8030'
+udp_socket = '172.29.57.165:8030'
 target = '127.0.0.1:8029'
 
 # Space Segment

@@ -96,6 +96,18 @@ impl Subsystem {
         Err(e.into())
     }
 
+    pub fn test_struct(&self, input: ExampleInput) -> Result<()> {
+        Ok(())
+    }
+
+    pub fn test_vec(&self, input: Vec<u8>) -> Result<()> {
+        Ok(())
+    }
+
+    pub fn test_opt_vec(&self, input: Option<Vec<bool>>) -> Result<()> {
+        Ok(())
+    }
+
     /// This function is used to set values of the underlying API's struct.
     ///
     /// # Arguments
@@ -120,7 +132,8 @@ impl Subsystem {
            in_no1,
            in_no2,
            in_str,
-           in_bool, 
+           in_bool,
+           in_struct: TestStruct::default(),
         };
         Ok(self.example.lock().unwrap().set_values(sub, choice)?)
     }

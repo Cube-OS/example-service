@@ -1,0 +1,44 @@
+# struct Get {
+	get: ExampleEnum,
+}
+
+# struct Error {}
+
+# struct TestStructFn {
+	input: ExampleInput,
+}
+
+# struct TestVec {
+	input: Vec<u8>,
+}
+
+# struct TestOptVec {
+	input: Option<Vec<bool>>,
+}
+
+# struct Set {
+	in_no: u16,
+	in_n01: u32,
+	in_no2: u16,
+	in_str: String,
+	in_bool: bool,
+	choice: ExampleEnum,
+}
+
+# struct SetI2c {
+	input: u8,
+}
+
+# struct SetUart {
+	input: u8,
+}
+
+enum ExampleEnum { Zero, One, All, }
+struct ExampleInput
+{
+    in_no : u16, in_no1 : u32, in_no2 : u16, in_str : String, in_bool : bool,
+    in_struct : TestStruct,
+}
+struct TestStruct { in1 : i16, in2 : f64, struc : TestStruct2, }
+struct TestStruct2 { t1 : u64, te : ExampleEnum, }
+

@@ -19,6 +19,7 @@
 // It enables the communication via UDP or GraphQL (depending on --features flag during compilation)
 
 use cubeos_service::*;
+use example_api::{ExampleEnum, ExampleInput, ExampleOutput};
 use example_api::*;
 
 // Macro to create UDP-handler function or GraphQL Queries and Mutations
@@ -37,6 +38,9 @@ service_macro! {
         // query: GetUart => fn get_uart(&self) -> Result<Vec<u8>>; out: Vec<u8>;
         // query: GetUdp => fn get_udp(&self, command: Vec<u8>, rx_len: usize) -> Result<Vec<u8>>; out: Vec<u8>;
         mutation: Error => fn test_err(&self) -> Result<()>;
+        mutation: TestStructFn => fn test_struct(&self, input: ExampleInput) -> Result<()>;
+        mutation: TestVec => fn test_vec(&self, input: Vec<u8>) -> Result<()>;
+        mutation: TestOptVec => fn test_opt_vec(&self, input: Option<Vec<bool>>) -> Result<()>;
         mutation: Set => fn set_values(&self, in_no: u16, in_n01: u32, in_no2: u16, in_str: String, in_bool: bool, choice: ExampleEnum) -> Result<()>;
         mutation: SetI2c => fn set_i2c(&self, input: u8) -> Result<()>;
         mutation: SetUart => fn set_uart(&self, input: u8) -> Result<()>;
