@@ -1,23 +1,4 @@
 # Ground Segment
 [example-service]
-i2c_bus = "/dev/i2c-0"
-i2c_addr = '1'
 uart_bus = "/dev/ttyS0" #placeholder only
 uart_timeout = '100'
-udp_path = '127.0.0.1:8031'
-udp_to = '127.0.0.1:8032'
-err_buff_len = 64
-wd_timeout = 1000
-udp_socket = '172.29.57.165:8030'
-target = '127.0.0.1:8029'
-
-# Space Segment
-[example-service.addr]
-ip = "0.0.0.0"
-port = 8029
-
-[example-service.comms]
-max_num_handlers = 10
-downlink_ports = [16002,8050,8080]
-timeout = 1000
-ip = "127.0.0.1"

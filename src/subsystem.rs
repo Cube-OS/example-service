@@ -20,7 +20,7 @@
 // Comments generated in parts with GPT-3 (see disclaimer in README)
 
 use cubeos_service::*;
-use example_api::*;
+use dandelions_api::*;
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::Duration;
 use log::{error, info};
@@ -28,9 +28,9 @@ use log::{error, info};
 
 #[derive(Clone)]
 pub struct Subsystem {
-    example: Arc<Mutex<ExampleStruct>>,
-    pub last_cmd: Arc<RwLock<Vec<u8>>>,
-    pub last_err: Arc<RwLock<Error>>,
+    dandelions: Arc<Mutex<DandelionsStruct>>,
+    // pub last_cmd: Arc<RwLock<Vec<u8>>>,
+    // pub last_err: Arc<RwLock<Error>>,
 }
 impl Subsystem {
     /// Initialisation of the Subsystem
@@ -45,123 +45,28 @@ impl Subsystem {
     ///
     /// # Output
     ///
-    /// * `ExampleResult<Self>` - Returns `Self` or ExampleError.
+    /// * `DandelionsResult<Self>` - Returns `Self` or DandelionsError.
     pub fn new(
-        i2c_path: String,
-        i2c_addr: u16,
         uart_path: String,
         uart_setting: serial::PortSettings,
         uart_timeout: Duration,
-        udp_path: String,
-        udp_to: String,
-    ) -> ExampleResult<Self> {
+    ) -> DandelionsResult<Self> {
         Ok(Self {
-            example: Arc::new(Mutex::new(ExampleStruct::new(
-                i2c_path,
-                i2c_addr,
+            dandelions: Arc::new(Mutex::new(DandelionsStruct::new(
                 uart_path,
                 uart_setting,
                 uart_timeout,
-                udp_path,
-                udp_to,
             )?)),
-            last_cmd: Arc::new(RwLock::new(Vec::new())),
-            last_err: Arc::new(RwLock::new(Error::None)),
         })
     }
 
-    /// This function is used to get values from the underlying API's struct.
-    ///
-    /// # Arguments
-    ///
-    /// * `get` - Enum that specifies which values to get.
-    ///
-    /// # Output
-    ///
-    /// * `Result<ExampleOutput>` - Returns Struct containing the requested values or ExampleError
-    pub fn get_values(&self, get: ExampleEnum) -> Result<ExampleOutput> {
-        info!("get_values called with {:?}", get);
-        Ok(self.example.lock().unwrap()
-            .get_values(get)
-            .map_err(|e| {
-                error!("get_values failed with {:?}", e);
-                e
-            })?
-        )
+    /// These functions are Dandelionss how to use the underlying GET and SET functions
+    /// 
+    pub fn get_uart(&self) -> Result<()> {
+        Ok(self.dandelions.lock().unwrap().get_uart()?)
     }
 
-    pub fn test_err(&self) -> Result<()> {
-        error!("test_err called");
-        let e = ExampleError::None;
-        Err(e.into())
-    }
-
-    pub fn test_struct(&self, input: ExampleInput) -> Result<()> {
-        Ok(())
-    }
-
-    pub fn test_vec(&self, input: Vec<u8>) -> Result<()> {
-        Ok(())
-    }
-
-    pub fn test_opt_vec(&self, input: Option<Vec<bool>>) -> Result<()> {
-        Ok(())
-    }
-
-    /// This function is used to set values of the underlying API's struct.
-    ///
-    /// # Arguments
-    ///
-    /// * `sub` - Struct containing the values to set.
-    /// * `choice` - Enum that specifies which values to set.
-    ///
-    /// # Output
-    ///
-    /// * `Result<()>` - Returns () if successful, ExampleError otherwise
-    ///
-    pub fn set_values(&self, 
-        in_no: u16,
-        in_no1: u32,
-        in_no2: u16,
-        in_str: String,
-        in_bool: bool,
-        choice: ExampleEnum,
-    ) -> Result<()> {
-        let sub = ExampleInput{
-           in_no,
-           in_no1,
-           in_no2,
-           in_str,
-           in_bool,
-           in_struct: TestStruct::default(),
-        };
-        Ok(self.example.lock().unwrap().set_values(sub, choice)?)
-    }
-
-    /// These functions are examples how to use the underlying GET and SET functions
-    /// for I2C, UART and UDP payloads
-    ///
-    pub fn get_i2c(&self) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_i2c()?)
-    }
-
-    pub fn set_i2c(&self, input: u8) -> Result<()> {
-        Ok(self.example.lock().unwrap().set_i2c(input)?)
-    }
-
-    pub fn get_uart(&self) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_uart()?)
-    }
-
-    pub fn set_uart(&self, input: u8) -> Result<()> {
-        Ok(self.example.lock().unwrap().set_uart(input)?)
-    }
-
-    pub fn get_udp(&self, command: Vec<u8>) -> Result<Vec<u8>> {
-        Ok(self.example.lock().unwrap().get_udp(command)?)
-    }
-
-    pub fn set_udp(&self, input: Vec<u8>) -> Result<()> {
-        Ok(self.example.lock().unwrap().set_udp(input)?)
+    pub fn set_uart(&self) -> Result<()> {
+        Ok(self.dandelions.lock().unwrap().set_uart()?)
     }
 }
